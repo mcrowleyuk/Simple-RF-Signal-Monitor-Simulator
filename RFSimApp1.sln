@@ -1,0 +1,23 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.7.34202.233
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "RFSimApp", "RFSimApp.pyproj", "{13BA59F5-DF29-4E3B-B9D8-DD689E4CED1C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{13BA59F5-DF29-4E3B-B9D8-DD689E4CED1C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{13BA59F5-DF29-4E3B-B9D8-DD689E4CED1C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B506B5D5-4B5B-4E3B-B82A-9E7F9AD2637B}
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>RF Signal Monitor</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <h1>RF Signal Strength Monitor (Simulation)</h1>
+
+    <p>Signal Strength: <span id="strength">...</span> dBm</p>
+    <p>Frequency: <span id="frequency">...</span> MHz</p>
+    <p>Last Updated: <span id="timestamp">...</span></p>
+    <button onclick="refreshData()">Refresh RF Data</button>
+
+    <canvas id="rfChart" width="600" height="300"></canvas>
+
+    <script>
+        const ctx = document.getElementById('rfChart').getContext('2d');
+        const rfChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: [],
+                datasets: [{
+                    label: 'Signal Strength (dBm)',
+                    data: [],
+                    borderColor: 'blue',
+                    fill: false
+                }]
+            },
+            options: {
+                scales: {
+                    x: {
+                        title: { display: true, text: 'Time' }
+                    },
+                    y: {
+                        title: { display: true, text: 'dBm' },
+                        min: -100,
+                        max: -50
+                    }
+                }
+            }
+        });
+
+        function refreshData() {
+            fetch('/rf')
+                .then(res => res.json())
+                .then(data => {
+                    const now = new Date().toLocaleTimeString();
+                    document.getElementById('strength').textContent = data.signal_strength;
+                    document.getElementById('frequency').textContent = data.frequency;
+                    document.getElementById('timestamp').textContent = now;
+
+                    // Update chart
+                    rfChart.data.labels.push(now);
+                    rfChart.data.datasets[0].data.push(data.signal_strength);
+                    rfChart.update();
+                });
+        }
+
+        // Load initial data and refresh every 5 seconds
+        refreshData();
+        setInterval(refreshData, 5000);
+    </script>
+</body>
+</html>
