@@ -2,6 +2,8 @@
 from flask import Flask, jsonify, render_template, request, redirect, url_for, session
 import random
 
+
+
 app = Flask(__name__)
 app.secret_key = 'hello+!'  # Replace with a secure random key
 
@@ -38,5 +40,7 @@ def logout():
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host='127.0.0.1', port=5000, debug=True)
+
+ 
     

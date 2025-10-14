@@ -42,8 +42,8 @@
         });
 
         function refreshData() {
-            fetch('/rf')
-                .then(res => res.json())
+            fetch('/rf') // sends an HTTP GET request  to /rf route of Flask App
+                .then(res => res.json()) // convert back to JSO
                 .then(data => {
                     const now = new Date().toLocaleTimeString();
                     document.getElementById('strength').textContent = data.signal_strength;
