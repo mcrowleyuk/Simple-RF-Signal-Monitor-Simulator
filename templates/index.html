@@ -12,9 +12,15 @@
     <p>Last Updated: <span id="timestamp">...</span></p>
     <button onclick="refreshData()">Refresh RF Data</button>
 
+    <button onclick="warnedYou()">Don't Click This Button</button>
+
     <canvas id="rfChart" width="600" height="300"></canvas>
 
     <script>
+
+        let bWarned = false;
+        let refreshInterval;
+
         const ctx = document.getElementById('rfChart').getContext('2d');
         const rfChart = new Chart(ctx, {
             type: 'line',
@@ -57,9 +63,26 @@
                 });
         }
 
+        function warnedYou() {
+            alert("Commencing Frequency Jamming - no turning back!");
+            bWarned = true;
+
+            // Clear previous interval
+            clearInterval(refreshInterval);
+
+            // Start fast refresh
+            refreshInterval = setInterval(refreshData, 10);
+            refreshData();
+
+            }
+
+
         // Load initial data and refresh every 5 seconds
         refreshData();
-        setInterval(refreshData, 5000);
+        if (!bWarned)
+            setInterval(refreshData, 5000);
+        else
+            setInterval(refreshData, 10); // won't get to here
     </script>
 </body>
 </html>
