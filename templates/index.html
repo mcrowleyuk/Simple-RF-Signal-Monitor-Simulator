@@ -62,6 +62,21 @@
                     rfChart.update();
                 });
         }
+        function ew() {
+            fetch('/ew')
+                .then(res => res.json()) // convert back to JSO
+                .then(data => {
+                    const now = new Date().toLocaleTimeString();
+                    document.getElementById('strength').textContent = data.signal_strength;
+                    document.getElementById('frequency').textContent = data.frequency;
+                    document.getElementById('timestamp').textContent = now;
+
+                    // Update chart
+                    rfChart.data.labels.push(now);
+                    rfChart.data.datasets[0].data.push(data.signal_strength);
+                    rfChart.update();
+                });
+        }
 
         function warnedYou() {
             alert("Commencing Frequency Jamming - no turning back!");
@@ -71,10 +86,10 @@
             clearInterval(refreshInterval);
 
             // Start fast refresh
-            refreshInterval = setInterval(refreshData, 10);
-            refreshData();
-
-            }
+            refreshInterval = setInterval(ew, 100);
+            //refreshData();
+            ew();
+        }
 
 
         // Load initial data and refresh every 5 seconds
@@ -82,7 +97,7 @@
         if (!bWarned)
             setInterval(refreshData, 5000);
         else
-            setInterval(refreshData, 10); // won't get to here
+            setInterval(refreshData, 100); // won't get to here
     </script>
 </body>
 </html>

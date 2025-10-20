@@ -21,6 +21,15 @@ def rf_data():
     frequency = random.choice([2400, 2450, 2500])  # MHz
     return jsonify(signal_strength=signal_strength, frequency=frequency)
 
+
+@app.route('/ew')
+def ew():
+    signal_strength = -50  # dBm
+    frequency = 2400; # MHz
+    return jsonify(signal_strength=signal_strength, frequency=frequency)
+
+
+
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
