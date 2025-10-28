@@ -62,4 +62,4 @@ def logout():
 # --- Start UDP Listener in Background ---
 if __name__ == '__main__':
     threading.Thread(target=udp_listener, daemon=True).start()
-    app.run(host='127.0.0.1', port=8082, debug=True)
+    app.run(host='127.0.0.1', port=5000, debug=True)
