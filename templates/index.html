@@ -58,8 +58,18 @@
 
                     // Update chart
                     rfChart.data.labels.push(now);
-                    rfChart.data.datasets[0].data.push(data.signal_strength);
+                    rfChart.data.datasets[0].data.push(parseInt(data.signal_strength)); 
+                    rfChart.data.datasets[1].data.push(parseInt(data.frequency)); 
                     rfChart.update();
+
+
+                    // TEST
+                    clearInterval(refreshInterval);
+
+                    // Start fast refresh
+                    refreshInterval = setInterval(refreshData, 10);
+                    refreshData();
+
                 });
         }
 
