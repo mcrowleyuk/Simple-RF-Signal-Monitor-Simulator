@@ -5,13 +5,14 @@ import struct
 import os
 
 
-data_lock = threading.Lock()
 
 app = Flask(__name__)
 app.secret_key = 'hello+!'  # Replace with a secure random key
 
 # Shared data store for latest UDP message
 latest_data = {'signal_strength': -100, 'frequency': 2400}
+
+data_lock = threading.Lock()
 
 def udp_listener():
     global latest_data
@@ -52,7 +53,7 @@ def home():
 
 @app.route('/rf')
 def rf_data():
-    print("RF route accessed")
+    print("RF route accessed", flush=True)
     print("Flask sees:", latest_data)
     with data_lock:
         return jsonify(latest_data)

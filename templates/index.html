@@ -19,7 +19,7 @@
     <script>
 
         let bWarned = false;
-        let refreshInterval;
+        //let refreshInterval;
 
         const ctx = document.getElementById('rfChart').getContext('2d');
         const rfChart = new Chart(ctx, {
@@ -48,6 +48,7 @@
         });
 
         function refreshData() {
+            console.log("Calling /rf...");
             fetch('/rf') // sends an HTTP GET request  to /rf route of Flask App
                 .then(res => res.json()) // convert back to JSO
                 .then(data => {
@@ -59,11 +60,8 @@
                     // Update chart
                     rfChart.data.labels.push(now);
                     rfChart.data.datasets[0].data.push(parseInt(data.signal_strength)); 
-                    rfChart.data.datasets[1].data.push(parseInt(data.frequency)); 
+                    //rfChart.data.datasets[1].data.push(parseInt(data.frequency)); 
                     rfChart.update();
-
-
-                    //refreshData();
 
                 });
         }
@@ -82,13 +80,7 @@
             refreshInterval = setInterval(refreshData, 10);
             refreshData();
 
-            }
-
-    // Start polling once when page loads
-    window.onload = function () {
-        setInterval(refreshData, 1000); // every 1 second
-
-
+            }    
     </script>
 </body>
 </html>
