@@ -4,6 +4,9 @@ import threading
 import struct
 import os
 
+
+data_lock = threading.Lock()
+
 app = Flask(__name__)
 app.secret_key = 'hello+!'  # Replace with a secure random key
 
@@ -27,11 +30,12 @@ def udp_listener():
             if len(parts) == 2:
                 signal_strength = int(parts[0])
                 frequency = int(parts[1])
-
-                latest_data.update({
-                    'signal_strength': signal_strength,
-                    'frequency': frequency
-                })
+                
+                with data_lock:
+                    latest_data.update({
+                        'signal_strength': signal_strength,
+                        'frequency': frequency
+                    })
 
                 print(f"Received: dBm={signal_strength}, freq={frequency}")
             else:
@@ -50,8 +54,8 @@ def home():
 def rf_data():
     print("RF route accessed")
     print("Flask sees:", latest_data)
-
-    return jsonify(latest_data)
+    with data_lock:
+        return jsonify(latest_data)
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():

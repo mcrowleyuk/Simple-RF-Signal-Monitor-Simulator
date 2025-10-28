@@ -63,15 +63,13 @@
                     rfChart.update();
 
 
-                    // TEST
-                    clearInterval(refreshInterval);
-
-                    // Start fast refresh
-                    refreshInterval = setInterval(refreshData, 10);
                     refreshData();
 
                 });
         }
+
+        // Start polling once
+        let refreshInterval = setInterval(refreshData, 1000); // every 1 second
 
         function warnedYou() {
             alert("Commencing Frequency Jamming - no turning back!");
@@ -86,13 +84,11 @@
 
             }
 
+    // Start polling once when page loads
+    window.onload = function () {
+        setInterval(refreshData, 1000); // every 1 second
 
-        // Load initial data and refresh every 5 seconds
-        refreshData();
-        if (!bWarned)
-            setInterval(refreshData, 5000);
-        else
-            setInterval(refreshData, 10); // won't get to here
+
     </script>
 </body>
 </html>
